@@ -22,6 +22,7 @@ public class LogonScreen extends javax.swing.JFrame {
     ResultSet rs = null;
     PreparedStatement pst = null;
     JavaConnect JavaConnect = new JavaConnect();
+    
     LogonScreen() {
         initComponents();        
         conn = JavaConnect.ConnecrDb();

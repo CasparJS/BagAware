@@ -24,28 +24,31 @@ public class ManagerMainScreen extends javax.swing.JFrame {
     PreparedStatement pst = null;
     public static ResultSet rsmatch = null;
     ResultSet rs = null;
-
+    private JavaConnect jc;
+    
     /**
      * Creates new form ManagerPopupScreen
      */
     ManagerMainScreen() {
         initComponents();
-        JavaConnect JavaConnect = new JavaConnect();
-        conn = JavaConnect.ConnecrDb();
+        jc = new JavaConnect();
         Update_Table();
-        JavaConnect.closeDb();
+
+
     }
 
-    private void Update_Table() {
+      private void Update_Table() {
         try {
-            String sql = "SELECT (baglabelcode, Status, Datecreated) FROM"
+            conn = jc.ConnecrDb();
+            String sql = "SELECT baglabelcode, Status, Datecreated FROM"
                     + " bagawaredb.FOUND";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             tableCases.setModel(DbUtils.resultSetToTableModel(rs));
-
-        } catch (Exception e) {
+            jc.closeDb();
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+            System.out.println(e.getMessage());
         }
     }
 
